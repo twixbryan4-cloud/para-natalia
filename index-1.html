@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#08080b" />
+  <title>Para a minha Natália 🤍</title>
+  <style>
+    :root{
+      --bg:#07070a;
+      --bg2:#0d0d12;
+      --text:#f7f5f2;
+      --muted:#b7b4bb;
+      --line:rgba(255,255,255,.10);
+      --glass:rgba(255,255,255,.055);
+      --glass2:rgba(255,255,255,.085);
+      --shadow:0 20px 60px rgba(0,0,0,.42);
+      --radius:26px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      min-height:100vh;
+      color:var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 18% 15%, rgba(255,255,255,.05), transparent 25%),
+        radial-gradient(circle at 82% 36%, rgba(255,255,255,.035), transparent 23%),
+        linear-gradient(180deg, #09090d 0%, #07070a 46%, #0a0a0e 100%);
+      overflow-x:hidden;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.25;
+      background-image:
+        linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+      background-size:44px 44px;
+      mask-image:linear-gradient(to bottom,rgba(0,0,0,.8),transparent 78%);
+      z-index:-3;
+    }
+
+    #stars{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:-2;
+      overflow:hidden;
+    }
+
+    .star{
+      position:absolute;
+      width:2px;
+      height:2px;
+      border-radius:50%;
+      background:white;
+      opacity:.35;
+      animation:twinkle var(--t) ease-in-out infinite;
+    }
+
+    @keyframes twinkle{
+      0%,100%{opacity:.15;transform:scale(.8)}
+      50%{opacity:.7;transform:scale(1.25)}
+    }
+
+    .intro{
+      position:fixed;
+      inset:0;
+      z-index:50;
+      display:grid;
+      place-items:center;
+      padding:24px;
+      background:
+        radial-gradient(circle at 50% 42%, rgba(255,255,255,.06), transparent 28%),
+        rgba(5,5,8,.97);
+      transition:opacity .8s ease, visibility .8s ease;
+    }
+
+    .intro.hide{
+      opacity:0;
+      visibility:hidden;
+    }
+
+    .intro-card{
+      width:min(520px,100%);
+      text-align:center;
+      padding:38px 24px 28px;
+    }
+
+    .tiny{
+      margin:0 0 10px;
+      color:#aaa7af;
+      font-size:.76rem;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+    }
+
+    h1,h2,p{margin-top:0}
+    .intro h1{
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight:400;
+      font-size:clamp(2.25rem,9vw,4.7rem);
+      line-height:.98;
+      letter-spacing:-.045em;
+      margin-bottom:18px;
+    }
+
+    .intro .sub{
+      color:var(--muted);
+      line-height:1.7;
+      max-width:390px;
+      margin:0 auto 28px;
+      font-size:.98rem;
+    }
+
+    button{
+      font:inherit;
+      border:0;
+      cursor:pointer;
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    .primary{
+      color:#111115;
+      background:#f4f1ed;
+      border-radius:999px;
+      padding:15px 24px;
+      font-weight:700;
+      box-shadow:0 10px 30px rgba(255,255,255,.09);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .primary:active{transform:scale(.97)}
+
+    main{
+      width:min(900px, calc(100% - 30px));
+      margin:0 auto;
+      padding:0 0 64px;
+    }
+
+    .hero{
+      min-height:100svh;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      padding:70px 10px 55px;
+      position:relative;
+    }
+
+    .eyebrow{
+      color:#aaa7af;
+      font-size:.76rem;
+      text-transform:uppercase;
+      letter-spacing:.2em;
+      margin-bottom:15px;
+    }
+
+    .hero h1{
+      max-width:760px;
+      font-family:Georgia, "Times New Roman", serif;
+      font-weight:400;
+      letter-spacing:-.05em;
+      font-size:clamp(3rem,13vw,7.6rem);
+      line-height:.87;
+      margin-bottom:22px;
+    }
+
+    .hero .lead{
+      color:var(--muted);
+      line-height:1.7;
+      width:min(560px,100%);
+      margin-bottom:42px;
+    }
+
+    .scroll-note{
+      position:absolute;
+      bottom:24px;
+      color:#77747c;
+      font-size:.78rem;
+      letter-spacing:.08em;
+      display:flex;
+      gap:8px;
+      align-items:center;
+    }
+
+    .scroll-note::before{
+      content:"";
+      width:22px;
+      height:1px;
+      background:#77747c;
+    }
+
+    section{
+      margin:22px 0;
+      opacity:0;
+      transform:translateY(18px);
+      transition:opacity .7s ease, transform .7s ease;
+    }
+    section.show{opacity:1;transform:none}
+
+    .card{
+      border:1px solid var(--line);
+      background:linear-gradient(180deg,var(--glass2),var(--glass));
+      backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .counter-card{
+      padding:28px 18px 22px;
+      text-align:center;
+    }
+
+    .counter-card h2,
+    .message-card h2,
+    .future-card h2,
+    .music-card h2,
+    .secret-card h2{
+      font-family:Georgia, "Times New Roman", serif;
+      font-weight:400;
+      font-size:clamp(1.8rem,7vw,3rem);
+      letter-spacing:-.035em;
+      margin-bottom:9px;
+    }
+
+    .muted{
+      color:var(--muted);
+      line-height:1.7;
+    }
+
+    .counter{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:8px;
+      margin-top:24px;
+    }
+
+    .time-box{
+      padding:18px 7px 14px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(0,0,0,.15);
+      border-radius:18px;
+    }
+
+    .time-box strong{
+      display:block;
+      font-size:clamp(1.45rem,7vw,2.2rem);
+      font-weight:650;
+      letter-spacing:-.04em;
+    }
+
+    .time-box span{
+      display:block;
+      color:#8f8c94;
+      font-size:.7rem;
+      margin-top:5px;
+      text-transform:uppercase;
+      letter-spacing:.1em;
+    }
+
+    .message-card{
+      padding:34px 24px;
+    }
+
+    .message{
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:clamp(1.16rem,4.7vw,1.55rem);
+      line-height:1.75;
+      color:#f0edef;
+      margin:22px 0 0;
+    }
+
+    .signature{
+      margin-top:22px;
+      color:#99969e;
+      font-size:.86rem;
+    }
+
+    .future-card{
+      padding:34px 24px 26px;
+      text-align:center;
+    }
+
+    .constellation{
+      position:relative;
+      height:220px;
+      margin:24px 0 16px;
+      border-radius:22px;
+      border:1px solid rgba(255,255,255,.08);
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 20% 25%, rgba(255,255,255,.08), transparent 20%),
+        radial-gradient(circle at 75% 70%, rgba(255,255,255,.06), transparent 19%),
+        rgba(0,0,0,.12);
+    }
+
+    .dot{
+      position:absolute;
+      width:4px;
+      height:4px;
+      border-radius:50%;
+      background:#f6f3f0;
+      box-shadow:0 0 12px rgba(255,255,255,.45);
+    }
+
+    .line{
+      position:absolute;
+      height:1px;
+      transform-origin:left center;
+      background:linear-gradient(90deg,rgba(255,255,255,.08),rgba(255,255,255,.28),rgba(255,255,255,.08));
+    }
+
+    .future-note{
+      color:#c4c1c7;
+      line-height:1.7;
+      margin:0 auto;
+      max-width:590px;
+    }
+
+    .music-card{
+      padding:30px 18px 20px;
+    }
+
+    .music-head{
+      padding:0 6px 18px;
+    }
+
+    .spotify-wrap{
+      overflow:hidden;
+      border-radius:18px;
+      background:#111;
+      min-height:152px;
+    }
+
+    .spotify-wrap iframe{
+      display:block;
+      width:100%;
+      border:0;
+    }
+
+    .secret-card{
+      padding:34px 24px;
+      text-align:center;
+    }
+
+    .secondary{
+      color:#f4f1ed;
+      background:rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:999px;
+      padding:13px 20px;
+      margin-top:8px;
+    }
+
+    .secret{
+      max-height:0;
+      opacity:0;
+      overflow:hidden;
+      transform:translateY(8px);
+      transition:max-height .65s ease, opacity .45s ease, transform .45s ease, margin .45s ease;
+      color:#dedbe0;
+      line-height:1.75;
+    }
+
+    .secret.open{
+      max-height:180px;
+      opacity:1;
+      transform:none;
+      margin-top:22px;
+    }
+
+    footer{
+      text-align:center;
+      padding:52px 10px 20px;
+      color:#88858d;
+    }
+
+    footer strong{
+      display:block;
+      color:#f2eff1;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:clamp(2rem,9vw,4rem);
+      font-weight:400;
+      letter-spacing:-.05em;
+      margin-bottom:9px;
+    }
+
+    .heart{
+      display:inline-block;
+      animation:pulse 1.8s ease-in-out infinite;
+    }
+
+    @keyframes pulse{
+      0%,100%{transform:scale(1)}
+      50%{transform:scale(1.12)}
+    }
+
+    @media (max-width:520px){
+      main{width:min(100% - 20px,900px)}
+      .counter{gap:6px}
+      .time-box{padding:15px 4px 12px;border-radius:15px}
+      .message-card,.future-card,.secret-card{padding-left:20px;padding-right:20px}
+      .card{border-radius:22px}
+    }
+
+    @media (prefers-reduced-motion:reduce){
+      *{scroll-behavior:auto!important;animation:none!important;transition:none!important}
+      section{opacity:1;transform:none}
+    }
+  </style>
+</head>
+<body>
+  <div id="stars" aria-hidden="true"></div>
+
+  <div class="intro" id="intro">
+    <div class="intro-card">
+      <p class="tiny">14 · 09 · 2026</p>
+      <h1>pra minha<br>Natália 🤍</h1>
+      <p class="sub">eu fiz um cantinho só nosso, bem simples, mas com tudo que eu queria te dizer</p>
+      <button class="primary" id="enterBtn">abrir meu presente</button>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero show">
+      <p class="eyebrow">21 dias de nós</p>
+      <h1>você virou meu lugar favorito</h1>
+      <p class="lead">não precisa de foto pra guardar uma história bonita, às vezes ela começa só com dois nomes, um sentimento e vontade de viver muita coisa ainda.</p>
+      <div class="scroll-note">desce um pouquinho</div>
+    </section>
+
+    <section>
+      <div class="card counter-card">
+        <p class="tiny">desde 14 de setembro de 2026</p>
+        <h2>quanto tempo faz que é “nós”</h2>
+        <p class="muted">e o contador continua, porque eu quero que isso seja só o começo.</p>
+        <div class="counter" aria-label="Tempo juntos">
+          <div class="time-box"><strong id="days">21</strong><span>dias</span></div>
+          <div class="time-box"><strong id="hours">00</strong><span>horas</span></div>
+          <div class="time-box"><strong id="minutes">00</strong><span>min</span></div>
+          <div class="time-box"><strong id="seconds">00</strong><span>seg</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="card message-card">
+        <p class="tiny">um pedacinho do que eu sinto</p>
+        <h2>pra você</h2>
+        <p class="message">eu sei q a gente tá junto faz só 21 dias, mas parece q em tão pouco tempo vc já conseguiu virar uma das pessoas mais importantes pra mim, cada conversa, cada momento, cada coisinha sua consegue deixar meu dia melhor, eu gosto muito de ter vc comigo e de poder chamar vc de minha namorada, quero q isso seja só o começo de muita coisa boa q a gente ainda vai viver juntos, eu fiz isso pra vc pq queria te mostrar de um jeito diferente o quanto vc é especial pra mim, talvez eu não consiga colocar tudo em palavras, mas quero q vc saiba q eu amo cada momento com vc e sou muito feliz por ter vc na minha vida, eu te amooo dmsss 🤍</p>
+        <p class="signature">— pra Natália, com carinho</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="card future-card">
+        <p class="tiny">o que ainda vem pela frente</p>
+        <h2>nossas fotos ainda vão chegar</h2>
+        <div class="constellation" id="constellation" aria-hidden="true"></div>
+        <p class="future-note">a gente ainda não tem nossas fotos aqui, mas eu gosto de pensar que esse espaço tá só esperando por todos os momentos que a gente ainda vai viver e guardar juntos 🤍</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="card music-card">
+        <div class="music-head">
+          <p class="tiny">uma música pra esse momento</p>
+          <h2>Apocalypse</h2>
+          <p class="muted">Cigarettes After Sex</p>
+        </div>
+        <div class="spotify-wrap">
+          <iframe
+            src="https://open.spotify.com/embed/track/0yc6Gst2xkRu0eMLeRMGCX?utm_source=generator&theme=0"
+            height="152"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+            title="Apocalypse — Cigarettes After Sex">
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="card secret-card">
+        <p class="tiny">mais uma coisinha</p>
+        <h2>antes de terminar…</h2>
+        <p class="muted">tem uma última mensagem escondida aqui.</p>
+        <button class="secondary" id="secretBtn">clica aqui 🤍</button>
+        <div class="secret" id="secretText">
+          independente de quantos dias apareçam naquele contador, eu espero continuar olhando pra vc com o mesmo carinho do começo, e com cada vez mais motivos pra te amar.
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <strong>eu te amooo dmsss <span class="heart">🤍</span></strong>
+      feito especialmente pra Natália
+    </footer>
+  </main>
+
+  <script>
+    const intro = document.getElementById('intro');
+    const enterBtn = document.getElementById('enterBtn');
+
+    enterBtn.addEventListener('click', () => {
+      intro.classList.add('hide');
+      document.body.style.overflow = '';
+    });
+
+    // Estrelas suaves
+    const stars = document.getElementById('stars');
+    const starCount = Math.min(70, Math.floor(window.innerWidth / 6));
+    for (let i = 0; i < starCount; i++) {
+      const s = document.createElement('span');
+      s.className = 'star';
+      s.style.left = Math.random() * 100 + '%';
+      s.style.top = Math.random() * 100 + '%';
+      s.style.opacity = (0.12 + Math.random() * 0.45).toFixed(2);
+      s.style.setProperty('--t', (2.2 + Math.random() * 4.5) + 's');
+      s.style.animationDelay = (-Math.random() * 5) + 's';
+      stars.appendChild(s);
+    }
+
+    // Contador desde 14/09/2026 no horário de Brasília
+    const startDate = new Date('2026-09-14T00:00:00-03:00');
+
+    function updateCounter() {
+      const now = new Date();
+      let diff = Math.max(0, now - startDate);
+
+      const totalSeconds = Math.floor(diff / 1000);
+      const days = Math.floor(totalSeconds / 86400);
+      const hours = Math.floor((totalSeconds % 86400) / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+
+      document.getElementById('days').textContent = days;
+      document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+      document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+      document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+    }
+
+    updateCounter();
+    setInterval(updateCounter, 1000);
+
+    // Revelação ao rolar
+    const revealSections = document.querySelectorAll('main section:not(.hero)');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('show');
+      });
+    }, { threshold: 0.12 });
+
+    revealSections.forEach(section => observer.observe(section));
+
+    // Constelação decorativa
+    const constellation = document.getElementById('constellation');
+    const points = [
+      [12,68],[24,38],[37,58],[49,28],[62,47],[76,25],[88,56],[69,77],[44,78],[28,84]
+    ];
+
+    points.forEach(([x,y], i) => {
+      const dot = document.createElement('span');
+      dot.className = 'dot';
+      dot.style.left = `calc(${x}% - 2px)`;
+      dot.style.top = `calc(${y}% - 2px)`;
+      constellation.appendChild(dot);
+
+      if (i < points.length - 1) {
+        const [x2,y2] = points[i+1];
+        const line = document.createElement('span');
+        line.className = 'line';
+
+        const dx = x2 - x;
+        const dy = y2 - y;
+        const distance = Math.sqrt(dx*dx + dy*dy);
+        const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+
+        line.style.left = x + '%';
+        line.style.top = y + '%';
+        line.style.width = distance + '%';
+        line.style.transform = `rotate(${angle}deg)`;
+        constellation.appendChild(line);
+      }
+    });
+
+    // Mensagem secreta
+    const secretBtn = document.getElementById('secretBtn');
+    const secretText = document.getElementById('secretText');
+
+    secretBtn.addEventListener('click', () => {
+      const open = secretText.classList.toggle('open');
+      secretBtn.textContent = open ? 'eu sabia q vc ia clicar 🤍' : 'clica aqui 🤍';
+    });
+  </script>
+</body>
+</html>
